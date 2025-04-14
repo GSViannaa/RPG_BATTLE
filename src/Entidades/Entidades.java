@@ -1,40 +1,60 @@
 package Entidades;
 
+import java.util.List;
+
 public abstract class Entidades
 {
+
+
     public String nome;
-    protected short vida;
+    private short vida;
     public short agilidade;
     protected String danoDado;
     public short ataqueMaximo;
-    protected short defesa;
+    private short defesa;
 
     public Entidades(String nome, short vida, short agilidade, String danoDado, short ataqueMaximo, short defesa)
     {
         this.nome = nome;
-        this.vida = vida;
+        this.setVida(vida);
 
         this.agilidade = agilidade;
         this.danoDado = danoDado;
 
         this.ataqueMaximo = ataqueMaximo;
-        this.defesa = defesa;
+        this.setDefesa(defesa);
     }
 
 
     public abstract int iniciativa(short agilidade);
 
-    public abstract int dano(short ataqueMaximo);
 
-    public  void receberDano(short dano)
-    {
-        vida = (short) (vida - (defesa - dano));
-        System.out.printf("%s recebeu %d de danoDado. Vida restante: %d", nome, dano, vida);
-    }
+   public abstract List<Short> calcularDano();
+
+   public abstract String mensagemDeAtaque();
 
     public boolean estaVivo()
     {
-        return vida <= 0;
+        return getVida() >= 0;
     }
 
+    public short getVida() {
+        return vida;
+    }
+
+    public void setVida(short vida) {
+        this.vida = vida;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public short getDefesa() {
+        return defesa;
+    }
+
+    public void setDefesa(short defesa) {
+        this.defesa = defesa;
+    }
 }

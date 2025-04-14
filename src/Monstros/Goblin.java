@@ -3,11 +3,14 @@ package Monstros;
 import Sistema.Dado;
 import Entidades.Monstros;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Goblin  extends Monstros
 {
     public Goblin()
     {
-        super("Entidades.Monstros.Goblin", (short) 85, (short) 12, "2d6 + 3", (short) 15, (short) 5);
+        super("Goblin", (short) 75, (short) 14, "1d6 + 3", (short) 9, (short) 5);
     }
     Dado dado;
 
@@ -17,9 +20,21 @@ public class Goblin  extends Monstros
         return dado.rolarIniciativa() + agilidade;
     }
 
+
+
     @Override
-    public int dano(short ataqueMaximo)
+    public List<Short> calcularDano()
     {
-        return dado.rolarDano(ataqueMaximo);
+        List<Short> danos = new ArrayList<>();
+        danos.add((short) dado.rolarDano(this.ataqueMaximo));
+        danos.add((short) dado.rolarDano(this.ataqueMaximo));
+
+        return danos;
+    }
+
+    @Override
+    public String mensagemDeAtaque()
+    {
+        return "O ágil Goblin ataca duas vezes com sua adaga!";
     }
 }

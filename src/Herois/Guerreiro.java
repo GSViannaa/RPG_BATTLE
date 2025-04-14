@@ -2,6 +2,9 @@ package Herois;
 
 import Entidades.Herois;
 import Sistema.Dado;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Guerreiro extends Herois
@@ -27,17 +30,24 @@ public class Guerreiro extends Herois
     }
 
     @Override
-    public void usarHabilidadeEspecial(short ataqueMaximo)
+    public List<Short> usarHabilidadeEspecial(short ataqueMaximo)
     {
+        List<Short> danos = new ArrayList<>();
+
         if(!usouAtaqueEspecial)
         {
             Random rand = new Random();
             int ataques = rand.nextInt(3) + 1;
 
-            short dano = (short) ((dado.rolarDano(ataqueMaximo) + 2) * (short) ataques);
+
 
             System.out.printf("%s usa 'Fúria'! e ataca %d vezes\n", nome, ataques);
-            System.out.printf("Você causa %d de dano! \n",  dano);
+
+            for(int i = 0; i < ataques; i++)
+            {
+                short dano = (short) ((dado.rolarDano(ataqueMaximo) + 2) * (short) ataques);
+                danos.add(dano);
+            }
 
             usouAtaqueEspecial = true;
 
@@ -45,8 +55,11 @@ public class Guerreiro extends Herois
         else
         {
             System.out.println("Você ja usou o ataque especial!");
+            return null;
 
         }
+
+        return danos;
     }
 
     @Override
@@ -55,9 +68,18 @@ public class Guerreiro extends Herois
         return dado.rolarIniciativa() +  agilidade;
     }
 
+
     @Override
-    public int dano(short ataqueMaximo)
+    public List<Short> calcularDano()
     {
-        return dado.rolarDano(ataqueMaximo);
+        List <Short> danos = new ArrayList<>();
+        danos.add((short) dado.rolarDano(this.ataqueMaximo) );
+
+        return danos;
+    }
+
+    @Override
+    public String mensagemDeAtaque() {
+        return "Você corta o oponente com toda sua força!";
     }
 }

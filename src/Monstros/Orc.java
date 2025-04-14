@@ -3,12 +3,15 @@ package Monstros;
 import Sistema.Dado;
 import Entidades.Monstros;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Orc  extends Monstros
 {
 
     public Orc()
     {
-        super("Entidades.Monstros.Orc", (short) 100, (short) 8, "2d6 + 3", (short) 15, (short) 8);
+        super("Orc", (short) 100, (short) 6, "2d6 + 5", (short) 17, (short) 8);
     }
     Dado dado;
 
@@ -18,9 +21,18 @@ public class Orc  extends Monstros
         return Dado.rolarIniciativa() + agilidade;
     }
 
+
     @Override
-    public int dano(short ataqueMaximo)
+    public List<Short> calcularDano()
     {
-        return dado.rolarDano(ataqueMaximo);
+        List<Short> danos = new ArrayList<>();
+        danos.add((short) dado.rolarDano(this.ataqueMaximo));
+
+        return danos;
+    }
+
+    @Override
+    public String mensagemDeAtaque() {
+        return "O brutal Orc ataca com força!";
     }
 }

@@ -1,5 +1,7 @@
 package Entidades;
 
+import java.util.List;
+
 public abstract class Herois extends Entidades
 {
     protected boolean usouAtaqueEspecial = false;
@@ -10,7 +12,7 @@ public abstract class Herois extends Entidades
     }
 
 
-    public abstract void usarHabilidadeEspecial(short forca);
+    public abstract List<Short> usarHabilidadeEspecial(short ataqueMaximo);
 
 
 }

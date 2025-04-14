@@ -3,11 +3,14 @@ package Herois;
 import Sistema.Dado;
 import Entidades.Herois;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Arqueiro  extends Herois
 {
     public Arqueiro(String nome)
     {
-        super(nome, (short) 90, (short) 9, "1d8", (short) 8, (short) 8, false);
+        super(nome, (short) 90, (short) 9, "1d8 + 2", (short) 10, (short) 8, false);
     }
     Dado dado;
 
@@ -23,14 +26,18 @@ public class Arqueiro  extends Herois
 
     }
     @Override
-    public void usarHabilidadeEspecial(short ataqueMaximo)
+    public List<Short> usarHabilidadeEspecial(short ataqueMaximo)
     {
-        short danoCausado = (short) ((short) ataqueMaximo * 4);
+        List<Short> danos = new ArrayList<>();
+
 
         if (!usouAtaqueEspecial)
         {
-            System.out.printf("%s usou 'Chuva de Flechas'! ", nome);
-            System.out.printf("Suas flechas caem do céu e causam %d de dano!\n", danoCausado);
+            short danoCausado = (short) ((short) ataqueMaximo * 4);
+            danos.add(danoCausado);
+
+            System.out.printf("%s usou 'Chuva de Flechas'! Suas flechas caem do céu ", nome);
+            System.out.printf(" e causam %d de dano!\n", danoCausado);
 
             usouAtaqueEspecial = true;
 
@@ -38,7 +45,9 @@ public class Arqueiro  extends Herois
         else
         {
             System.out.println("Você ja usou o ataque especial!");
+            return null;
         }
+        return danos;
 
     }
 
@@ -48,9 +57,18 @@ public class Arqueiro  extends Herois
         return dado.rolarIniciativa() +  agilidade;
     }
 
+
+
     @Override
-    public int dano(short ataqueMaximo)
-    {
-        return dado.rolarDano(ataqueMaximo);
+    public List<Short> calcularDano() {
+        List<Short> danos = new ArrayList<>();
+        danos.add((short) dado.rolarDano(this.ataqueMaximo));
+
+        return danos;
+    }
+
+    @Override
+    public String mensagemDeAtaque() {
+        return "Você atira uma flecha certeira!";
     }
 }

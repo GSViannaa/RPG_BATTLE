@@ -3,6 +3,9 @@ package Herois;
 import Sistema.Dado;
 import Entidades.Herois;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Mago extends Herois {
 
     public Mago(String nome) {
@@ -22,14 +25,15 @@ public class Mago extends Herois {
     }
 
     @Override
-    public void usarHabilidadeEspecial(short ataqueMaximo)
+    public List<Short> usarHabilidadeEspecial(short ataqueMaximo)
     {
+        List<Short> danos = new ArrayList<>();
+
         if(!usouAtaqueEspecial)
         {
             short danoCausado = (short) (ataqueMaximo + 6);
 
-            System.out.printf("%s lança 'Bola de Fogo'!\n", nome);
-            System.out.printf("Uma imensa bola de fogo cai do céu e causa %d de danoDado!\n", danoCausado);
+            System.out.printf("%s convoca ma imensa bola de fogo dos céus'!\n", nome);
 
             usouAtaqueEspecial = true;
 
@@ -37,8 +41,11 @@ public class Mago extends Herois {
         else
         {
             System.out.println("Você já usou o ataque especial!");
+            return null;
 
         }
+
+        return danos;
     }
 
     @Override
@@ -47,9 +54,19 @@ public class Mago extends Herois {
         return dado.rolarIniciativa() + agilidade;
     }
 
+
+
     @Override
-    public int dano(short ataqueMaximo)
+    public List<Short> calcularDano()
     {
-        return (short) dado.rolar(ataqueMaximo);
+        List<Short> danos = new ArrayList<>();
+        danos.add((short) dado.rolarDano(this.ataqueMaximo));
+
+        return danos;
+    }
+
+    @Override
+    public String mensagemDeAtaque() {
+        return "Você convoca raios e queima seu oponete com todo seu poder!";
     }
 }

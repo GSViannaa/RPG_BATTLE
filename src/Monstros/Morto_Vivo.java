@@ -3,6 +3,9 @@ package Monstros;
 import Sistema.Dado;
 import Entidades.Monstros;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Morto_Vivo extends Monstros
 {
 
@@ -18,9 +21,20 @@ public class Morto_Vivo extends Monstros
         return dado.rolarIniciativa() + agilidade;
     }
 
+
+
     @Override
-    public int dano(short ataqueMaximo)
+    public List<Short> calcularDano()
     {
-        return dado.rolarDano(ataqueMaximo);
+        List<Short> danos = new ArrayList<>();
+        danos.add((short) dado.rolarDano(this.ataqueMaximo));
+
+
+        return danos;
+    }
+
+    @Override
+    public String mensagemDeAtaque() {
+        return "O feroz Morto-Vivo morde com força e ignora sua defesa!";
     }
 }
