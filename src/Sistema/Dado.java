@@ -16,9 +16,9 @@ public class Dado
         return rolar(20);
     }
 
-    public  static int rolarDano(short ataque)
+    public  static int rolarDano(short ataqueMaximo)
     {
-        return Dado.rolar(ataque);
+        return Dado.rolar(ataqueMaximo) ;
     }
 
 

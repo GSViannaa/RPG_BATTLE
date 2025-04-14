@@ -6,12 +6,12 @@ public abstract class Entidades
 {
 
 
-    public String nome;
-    private short vida;
-    public short agilidade;
+    protected String nome;
+    protected short vida;
+    protected short agilidade;
     protected String danoDado;
-    public short ataqueMaximo;
-    private short defesa;
+    protected short ataqueMaximo;
+    protected short defesa;
 
     public Entidades(String nome, short vida, short agilidade, String danoDado, short ataqueMaximo, short defesa)
     {
@@ -38,23 +38,37 @@ public abstract class Entidades
         return getVida() >= 0;
     }
 
-    public short getVida() {
+    public short getVida()
+    {
         return vida;
     }
 
     public void setVida(short vida) {
+
         this.vida = vida;
     }
 
-    public String getNome() {
+    public String getNome()
+    {
         return nome;
     }
 
-    public short getDefesa() {
+    public short getDefesa()
+    {
         return defesa;
     }
 
-    public void setDefesa(short defesa) {
+    public void setDefesa(short defesa)
+    {
         this.defesa = defesa;
+    }
+
+    public short getAtaqueMaximo()
+    {
+        return ataqueMaximo;
+    }
+
+    public short getAgilidade() {
+        return agilidade;
     }
 }

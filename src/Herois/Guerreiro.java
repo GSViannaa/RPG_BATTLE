@@ -11,7 +11,7 @@ public class Guerreiro extends Herois
 {
     public Guerreiro(String nome)
     {
-        super(nome, (short) 120, (short) 8, "2d6", (short) 12, (short) 10, false);
+        super(nome, (short) 90, (short) 7, "3d6 + 2", (short) 20, (short) 8, false);
     }
 
     Dado dado;
@@ -19,14 +19,36 @@ public class Guerreiro extends Herois
 
     public static void exibirStatus()
     {
-        System.out.println("\n===== Entidades.Entidades.Herois.Guerreiro =====");
-        System.out.println("Vida: 120 ");
+        System.out.println("\n===== Guerreiro =====");
+        System.out.println("Vida: 90 ");
         System.out.println("Agilidade: 8 ");
-        System.out.println("Defesa: 10 ");
-        System.out.println("Ataque: 2d6");
+        System.out.println("Defesa: 8 ");
+        System.out.println("Ataque: 3d6 + 2");
         System.out.println("Ataque Especial: Fúria");
         System.out.println("======================");
 
+    }
+
+
+    @Override
+    public int iniciativa(short agilidade)
+    {
+        return dado.rolarIniciativa() +  agilidade;
+    }
+
+
+    @Override
+    public List<Short> calcularDano()
+    {
+        List <Short> danos = new ArrayList<>();
+        danos.add((short) dado.rolarDano((short) (this.ataqueMaximo + 3)));
+
+        return danos;
+    }
+
+    @Override
+    public String mensagemDeAtaque() {
+        return "Você corta o oponente com toda sua força!";
     }
 
     @Override
@@ -45,7 +67,7 @@ public class Guerreiro extends Herois
 
             for(int i = 0; i < ataques; i++)
             {
-                short dano = (short) ((dado.rolarDano(ataqueMaximo) + 2) * (short) ataques);
+                short dano = (short) (dado.rolarDano(ataqueMaximo));
                 danos.add(dano);
             }
 
@@ -62,24 +84,4 @@ public class Guerreiro extends Herois
         return danos;
     }
 
-    @Override
-    public int iniciativa(short agilidade)
-    {
-        return dado.rolarIniciativa() +  agilidade;
-    }
-
-
-    @Override
-    public List<Short> calcularDano()
-    {
-        List <Short> danos = new ArrayList<>();
-        danos.add((short) dado.rolarDano(this.ataqueMaximo) );
-
-        return danos;
-    }
-
-    @Override
-    public String mensagemDeAtaque() {
-        return "Você corta o oponente com toda sua força!";
-    }
 }

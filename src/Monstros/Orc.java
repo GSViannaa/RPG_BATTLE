@@ -11,7 +11,7 @@ public class Orc  extends Monstros
 
     public Orc()
     {
-        super("Orc", (short) 100, (short) 6, "2d6 + 5", (short) 17, (short) 8);
+        super("Orc", (short) 90, (short) 6, "4d6 + 5", (short) 29, (short) 6);
     }
     Dado dado;
 

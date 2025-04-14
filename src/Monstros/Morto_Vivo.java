@@ -10,10 +10,10 @@ public class Morto_Vivo extends Monstros
 {
 
     public Morto_Vivo() {
-        super("Morto-Vivo", (short) 80, (short) 6, "1d6 + 3", (short) 9, (short) 3);
+        super("Morto-Vivo", (short) 60, (short) 6, "3d6 + 3", (short) 21, (short) 3);
     }
 
-    Dado dado = new Dado();
+    Dado dado;
 
     @Override
     public int iniciativa(short agilidade)

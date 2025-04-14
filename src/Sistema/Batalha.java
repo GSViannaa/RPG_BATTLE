@@ -5,6 +5,7 @@ import Entidades.Herois;
 import Entidades.Monstros;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Batalha
@@ -25,11 +26,11 @@ public class Batalha
 
     public void iniciar()
     {
-        System.out.println("\n==== A Sistema.Batalha Começou ====");
-        System.out.printf("  %s vs %s\n", jogador.nome, monstro.nome);
+        System.out.println("\n==== A Batalha Começou ====");
+        System.out.printf("  %s vs %s\n", jogador.getNome(), monstro.getNome());
 
-        int iniciativaJogador = jogador.iniciativa(jogador.agilidade);
-        int iniciativaMonstro = monstro.iniciativa(monstro.agilidade);
+        int iniciativaJogador = jogador.iniciativa(jogador.getAgilidade());
+        int iniciativaMonstro = monstro.iniciativa(monstro.getAgilidade());
 
         boolean turnoJogador = iniciativaJogador >= iniciativaMonstro;
 
@@ -51,7 +52,7 @@ public class Batalha
 
         }
 
-
+            terminarBatalha(jogador, monstro);
 
 
     }
@@ -62,7 +63,7 @@ public class Batalha
         {
             boolean isValid = true;
 
-            System.out.printf("\n%s Seu turno! \n" , jogador.nome);
+            System.out.printf("\n%s Seu turno! \n" , jogador.getNome());
             System.out.println("Escolha: \n");
 
             while (isValid)
@@ -83,11 +84,11 @@ public class Batalha
 
                         case "2":
 
-                            List<Short> danosEspeciais = jogador.usarHabilidadeEspecial(jogador.ataqueMaximo);
+                            List<Short> danosEspeciais = jogador.usarHabilidadeEspecial(jogador.getAtaqueMaximo());
 
                             if (danosEspeciais != null)
                             {
-                                aplicarAtaquePersonalizado(jogador, monstro, danosEspeciais, "Ataque Especial!");
+                                aplicarAtaqueEspecial(jogador, monstro, danosEspeciais, "Ataque Especial!");
                                 isValid = false;
                             }
                             else
@@ -117,7 +118,7 @@ public class Batalha
 
     private void  turnoDoMonstro()
     {
-        System.out.printf("\nTurno do %s \n" , monstro.nome);
+        System.out.printf("\nTurno do %s \n" , monstro.getNome());
 
     }
 
@@ -133,12 +134,22 @@ public class Batalha
         for (int i = 0; i < danos.size(); i++)
         {
             short danoBruto = danos.get(i);
+
             somaDanoBruto += danoBruto;
 
             System.out.printf("Ataque %d: %d de dano\n", i + 1, danoBruto);
 
-            danoFinal = Math.max(somaDanoBruto - defensor.getDefesa(), 0);
-            defensor.setVida((short) (defensor.getVida() - danoFinal));
+            if(Objects.equals(atacante.getNome(), "Morto-Vivo"))
+            {
+                danoFinal += somaDanoBruto;
+            }
+            else
+            {
+                danoFinal = Math.max(somaDanoBruto - defensor.getDefesa(), 0);
+            }
+
+            int vidaRestante = defensor.getVida() - danoFinal;
+            defensor.setVida((short) vidaRestante);
 
         }
 
@@ -146,7 +157,7 @@ public class Batalha
 
     }
 
-    public void aplicarAtaquePersonalizado(Entidades atacante, Entidades defensor, List<Short> danos, String mensagem)
+    public void aplicarAtaqueEspecial(Entidades atacante, Entidades defensor, List<Short> danos, String mensagem)
     {
         System.out.println("\n" + mensagem);
 
@@ -161,10 +172,25 @@ public class Batalha
 
 
         int danoFinal = Math.max(soma - defensor.getDefesa(), 0);
-        defensor.setVida((short) (defensor.getVida() - danoFinal));
+        int vidaRestante = defensor.getVida() - danoFinal;
+        defensor.setVida((short) vidaRestante);
 
         System.out.printf("Dano final causado: %d \n❤️ Vida restante de %s: %d\n", danoFinal, defensor.getNome(), defensor.getVida());
 
     }
+
+    public void terminarBatalha(Herois jogador, Monstros monstro)
+    {
+       if(jogador.estaVivo())
+       {
+           System.out.printf("%s lutou com bravura e conquistou a vitória!\n", jogador.getNome());
+       }
+        else
+       {
+           System.out.printf("%s foi o ultimo em pé!Tente novamente.\n", monstro.getNome());
+       }
+
+    }
+
 
 }

@@ -10,7 +10,7 @@ public class Goblin  extends Monstros
 {
     public Goblin()
     {
-        super("Goblin", (short) 75, (short) 14, "1d6 + 3", (short) 9, (short) 5);
+        super("Goblin", (short) 65, (short) 14, "3d6", (short) 18, (short) 5);
     }
     Dado dado;
 

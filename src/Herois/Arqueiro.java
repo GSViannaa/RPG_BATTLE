@@ -10,17 +10,17 @@ public class Arqueiro  extends Herois
 {
     public Arqueiro(String nome)
     {
-        super(nome, (short) 90, (short) 9, "1d8 + 2", (short) 10, (short) 8, false);
+        super(nome, (short) 85, (short) 9, "2d8 + 4", (short) 20, (short) 6, false);
     }
     Dado dado;
 
     public static void exibirStatus()
     {
-        System.out.println("\n====== Entidades.Herois.Arqueiro ======");
-        System.out.println("Vida: 90 ");
+        System.out.println("\n====== Arqueiro ======");
+        System.out.println("Vida: 85 ");
         System.out.println("Agilidade: 9 ");
-        System.out.println("Defesa: 8 ");
-        System.out.println("Ataque: 1d8 + 2");
+        System.out.println("Defesa: 6 ");
+        System.out.println("Ataque: 2d8 + 4");
         System.out.println("Ataque Especial: Chuva de flecas");
         System.out.println("========================");
 
@@ -33,10 +33,10 @@ public class Arqueiro  extends Herois
 
         if (!usouAtaqueEspecial)
         {
-            short danoCausado = (short) ((short) ataqueMaximo * 4);
+            short danoCausado = (short) ((short)  ataqueMaximo * 3);
             danos.add(danoCausado);
 
-            System.out.printf("%s usou 'Chuva de Flechas'! Suas flechas caem do céu ", nome);
+            System.out.printf("%s usou 'Chuva de Flechas'!Suas flechas caem do céu!", nome);
             System.out.printf(" e causam %d de dano!\n", danoCausado);
 
             usouAtaqueEspecial = true;

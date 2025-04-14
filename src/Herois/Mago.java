@@ -9,17 +9,17 @@ import java.util.List;
 public class Mago extends Herois {
 
     public Mago(String nome) {
-        super(nome, (short) 70, (short) 5 , "1d16 + 2", (short) 18, (short) 4, false);
+        super(nome, (short) 60, (short) 5 , "1d16 + 5", (short) 21, (short) 6, false);
     }
 
     Dado dado;
 
     public static void exibirStatus() {
-        System.out.println("\n======= Entidades.Entidades.Herois.Mago ========");
-        System.out.println("Vida: 70 ");
+        System.out.println("\n======= Mago ========");
+        System.out.println("Vida: 60 ");
         System.out.println("Agilidade: 5");
-        System.out.println("Defesa: 4 ");
-        System.out.println("Ataque: 1d16 + 2");
+        System.out.println("Defesa: 6 ");
+        System.out.println("Ataque: 1d16 + 5");
         System.out.println("Ataque Especial: Bola de Fogo");
         System.out.println("==============================");
     }
@@ -31,7 +31,8 @@ public class Mago extends Herois {
 
         if(!usouAtaqueEspecial)
         {
-            short danoCausado = (short) (ataqueMaximo + 6);
+            short danoCausado = (short) (ataqueMaximo + 14);
+            danos.add(danoCausado);
 
             System.out.printf("%s convoca ma imensa bola de fogo dos céus'!\n", nome);
 
